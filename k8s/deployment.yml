@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: git-service
+  namespace: git-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: git-service
+  template:
+    metadata:
+      labels:
+        app: git-service
+    spec:
+      containers:
+      - name: git-service
+        image: ghcr.io/${{ github.repository }}:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secrets
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m" 

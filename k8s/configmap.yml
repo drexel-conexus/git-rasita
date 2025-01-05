@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: git-service
+data:
+  POSTGRES_DB: "github_watcher"
+  SERVER_PORT: "8080" 
